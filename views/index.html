@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="YC Data Analysis">
+        <link rel="stylesheet" href="/client/resources/css/common.css"/>
+        <link rel="stylesheet" href="/client/resources/css/reset.css"/>
+        <link rel="stylesheet" href="/client/resources/css/layout.css"/>
+        <link rel="stylesheet" href="/client/resources/css/responsive.css"/>          
+        <title>영천시 맞춤형 데이터 분석 시각화</title>
+        <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d0f88d63bd41b545d08ea9984995f082"></script> -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+    </head>
+
+    <body onload="service()">
+        <script>
+            function getBrowser() {
+                const browsers = [
+                    'Chrome', 'Opera',
+                    'WebTV', 'Whale',
+                    'Beonex', 'Chimera',
+                    'NetPositive', 'Phoenix',
+                    'Firefox', 'Safari',
+                    'SkipStone', 'Netscape', 'Mozilla',
+                ];
+
+                const userAgent = window.navigator.userAgent.toLowerCase();
+
+                // userAgent에 "edg"가 없다면 -1 리턴, 있다면 해당 자리 위치를 리턴(0보다 큼)
+                if (userAgent.indexOf("edg") > 0) {
+                    /* console.log("check: ", document.getElementById("viz-service-js"));
+                    document.getElementById("viz-service-js").remove();
+                    document.getElementById("root").innerHTML = "<p>Chrome 브라우저로 접속해 주세요.</p>"; */
+                    return "Edge";
+                }
+
+                if (userAgent.indexOf("trident") > 0 || userAgent.indexOf("msie") > 0) {
+                    // document.getElementById("viz-service-js").remove();
+                    /* document.body.removeChild(document.getElementById("viz-service-js"));
+                    document.getElementById("root").innerHTML = "<p>Chrome 브라우저로 접속해 주세요.</p>"; */
+                    return "Internet Explorer";
+                }
+
+                return browsers.find(function(browser) { return userAgent.indexOf(browser.toLowerCase()) > 0}) || 'Other';
+            }
+            console.log("Access Browser: ", getBrowser());
+
+            function service() {
+                let browserName = getBrowser();
+
+                if(browserName == "Internet Explorer") {
+                    document.body.removeChild(document.getElementById("viz-service-js"));
+                    document.getElementById("root").innerHTML = "<h1>Chrome 브라우저로 접속해 주세요.</h1>";
+                } else {
+                    return;
+                }
+            }
+        </script>
+        <div id="root"></div>
+        <script id="app-start-vue-page">const APP_USER_HTTP_REQUEST_URL = '/';</script>
+        <script id="viz-service-js" src="/client/build/bundle.js"></script>
+
+    </body>
+</html>
